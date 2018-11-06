@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Add Person
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="personForm" (submit)="createPersonWithBirthday()" novalidate>
+    <ion-item>
+      <ion-label stacked>Person Name</ion-label>
+      <ion-input formControlName="personName" type="text"
+                 placeholder="Name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Birthday</ion-label>
+      <ion-datetime displayFormat="DDDD, D. MMMM, YYYY" pickerFormat="DD MMMM YYYY"
+                    formControlName="birthday"></ion-datetime>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Amount</ion-label>
+      <ion-input type="number" min="0.01" formControlName="amount"></ion-input>
+    </ion-item>
+
+    <button ion-button block  (click)="takePicture()">
+      Take a Picture
+    </button>
+
+    <button ion-button block type="submit" [disabled]="!personForm.valid">
+      Add Person
+    </button>
+  </form>
+
+  <ion-list>
+    <ion-item *ngFor="let person of personList">
+      <h2>{{person?.name}}</h2>
+      <p>{{person?.birthday | date:'fullDate'}}</p>
+      <p>{{person?.amount | currency:'EUR':'symbol'}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
